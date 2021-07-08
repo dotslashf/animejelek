@@ -1,1 +1,6 @@
-console.log('hello world');
+import { randomAlphabet } from './utils/randomizer';
+
+const alphabet = randomAlphabet();
+
+console.log(alphabet);
+

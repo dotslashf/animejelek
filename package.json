@@ -4,13 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/index.ts"
+    "start": "ts-node src/wrapper/twitter.ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^16.0.1",
+    "@types/twit": "^2.2.30",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "twit": "^2.2.11",
+    "twitter-lite": "^1.1.0"
   }
 }
