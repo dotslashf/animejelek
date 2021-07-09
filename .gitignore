@@ -41,3 +41,4 @@ dist/**/*
 yarn.lock
 serviceAccountKey.ts
 src/test.ts
+src/img/final.png
