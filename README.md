@@ -5,7 +5,9 @@
 ## About 🖼️
 
 ```javascript
-your fav anime/waifu/husbando + jelek. data from anilist graphql api. tweeting every 30 mins. entertainment purposes only.
+your fav anime/waifu/husbando + jelek.
+data from anilist graphql api.
+tweeting every 30 mins. entertainment purposes only.
 ```
 
 ## Contributing
