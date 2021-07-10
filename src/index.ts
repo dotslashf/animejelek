@@ -5,15 +5,22 @@ import { Firebase } from './wrapper/firebase';
 import { downloadImage, joinImage } from './utils/imageManipulator';
 import { sleep } from './utils/sleep';
 import { tweetFormatter } from './utils/tweetFormatter';
+import createLogger from 'logging';
 
 const apolloClient = new Client();
 const firebase = new Firebase();
 const bot = new TwitterClient();
+const logger = createLogger('🚀');
 
 (async () => {
   while (true) {
     const type = randomType();
     const { n, nPage } = randomNumber(type);
+    logger.info(
+      `${type === 'character' ? '👨‍👩‍👧‍👦' : '🎬'} ${type.toUpperCase()} Index: ${
+        nPage * 50 + n
+      }`
+    );
 
     if (type === 'anime') {
       const anime = await apolloClient.getRandomAnime(nPage, n);
@@ -36,6 +43,6 @@ const bot = new TwitterClient();
         await firebase.addCharacter(character);
       }
     }
-    await sleep(30);
+    await sleep(180);
   }
 })();
