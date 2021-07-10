@@ -5,10 +5,7 @@ import {
   CharacterStructure,
   CharactersStructure,
 } from './../typings/index';
-import {
-  GET_RANDOM_ANIME,
-  GET_RANDOM_CHARACTER,
-} from './../graphql/query';
+import { GET_RANDOM_ANIME, GET_RANDOM_CHARACTER } from './../graphql/query';
 import request from 'node-superfetch';
 import dotenv from 'dotenv';
 
@@ -38,7 +35,7 @@ export class Client {
         .then(data => {
           const animes = data.body as AnimesStructure;
           const anime = animes.data.Page.media[index];
-          this.logger.info('Getting Anime Data', anime.title);
+          this.logger.info('Getting Anime Data', anime.title.userPreferred);
           return resolve(anime);
         })
         .catch(reject);
@@ -63,7 +60,10 @@ export class Client {
         .then(data => {
           const characters = data.body as CharactersStructure;
           const character = characters.data.Page.characters[index];
-          this.logger.info('Getting Character Data', character.name);
+          this.logger.info(
+            'Getting Character Data',
+            character.name.userPreferred
+          );
           return resolve(character);
         })
         .catch(reject);

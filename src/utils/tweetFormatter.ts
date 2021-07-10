@@ -11,7 +11,7 @@ export function tweetFormatter(
 
   if (type === 'anime') {
     let _data = data as AnimeStructure;
-    return `${emojiType} ${_data.title.userPreferred} jelek|Title: ${
+    return `${_data.title.userPreferred} jelek|${emojiType}\nTitle: ${
       _data.title.romaji
     }/${_data.title.english} (${
       _data.title.native
@@ -30,7 +30,7 @@ export function tweetFormatter(
     } else {
       genderEmoji = '❓';
     }
-    return `${emojiType} ${_data.name.userPreferred} jelek|${genderEmoji} Name: ${_data.name.full} (${_data.name.native})\nFavourites: ${_data.favourites}\n\nMore Info: ${_data.siteUrl}`.split(
+    return `${_data.name.userPreferred} jelek|${emojiType}\nName: ${_data.name.full} (${_data.name.native})\nGender: ${genderEmoji}\nFavourites: ${_data.favourites}\n\nMore Info: ${_data.siteUrl}`.split(
       '|'
     );
   }

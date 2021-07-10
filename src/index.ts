@@ -44,5 +44,6 @@ const logger = createLogger('🚀');
       }
     }
     await sleep(180);
+    logger.warn('--------#--------');
   }
 })();
