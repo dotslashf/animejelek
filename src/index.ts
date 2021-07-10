@@ -43,7 +43,7 @@ const logger = createLogger('🚀');
         await firebase.addCharacter(character);
       }
     }
-    await sleep(180);
     logger.warn('--------#--------');
+    await sleep(180);
   }
 })();
