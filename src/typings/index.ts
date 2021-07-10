@@ -27,6 +27,7 @@ export interface CharactersStructure {
 interface baseStructure {
   id: number;
   siteUrl: string;
+  favourites: number;
 }
 
 export interface AnimeStructure extends baseStructure {
@@ -42,6 +43,9 @@ export interface AnimeStructure extends baseStructure {
     medium: string;
     color: string;
   };
+  hashtag: string | null;
+  genres: string[];
+  averageScore: number;
 }
 
 export interface CharacterStructure extends baseStructure {
@@ -57,6 +61,7 @@ export interface CharacterStructure extends baseStructure {
     large: string;
     medium: string;
   };
+  gender: 'Male' | 'Female' | null;
 }
 
 export interface TwitterMediaResponse {

@@ -1,34 +1,3 @@
-export const GET_ANIMELIST = `
-  query ($page: Int, $perPage: Int, $search: String, $type: MediaType) {
-    Page(page: $page, perPage: $perPage) {
-      pageInfo {
-        total
-        currentPage
-        lastPage
-        hasNextPage
-        perPage
-      }
-      media(search: $search, type: $type) {
-        id
-        title {
-          romaji
-          english
-          native
-          userPreferred
-        }
-        season
-        popularity
-        coverImage {
-          extraLarge
-          large
-          medium
-          color
-        }
-      }
-    }
-  }
-`;
-
 export const GET_RANDOM_ANIME = `
 query($page: Int) {
   Page(page: $page) {
@@ -54,6 +23,10 @@ query($page: Int) {
         color
       }
       siteUrl
+      hashtag
+      genres
+      averageScore
+      favourites
     }
   }
 }`;
@@ -83,6 +56,8 @@ query($page: Int) {
         medium
       }
       siteUrl
+      gender
+      favourites
     }
   }
 }`;
