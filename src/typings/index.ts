@@ -1,67 +1,35 @@
-export type AnimesStructure = {
+interface PageInterface {
+  total: number;
+  currentPage: number;
+  lastPage: number;
+  hasNextPage: boolean;
+  perPage: number;
+}
+
+export interface AnimesStructure {
   data: {
     Page: {
-      pageInfo: {
-        total: number;
-        currentPage: number;
-        lastPage: number;
-        hasNextPage: boolean;
-        perPage: number;
-      };
-      media: [
-        {
-          id: number;
-          title: {
-            romaji: string;
-            english: string;
-            native: string;
-            userPreferred: string;
-          };
-          coverImage: {
-            extraLarge: string;
-            large: string;
-            medium: string;
-            color: string;
-          };
-        }
-      ];
+      pageInfo: PageInterface;
+      media: [AnimeStructure];
     };
   };
-};
+}
 
-export type CharactersStructure = {
+export interface CharactersStructure {
   data: {
     Page: {
-      pageInfo: {
-        total: number;
-        currentPage: number;
-        lastPage: number;
-        hasNextPage: boolean;
-        perPage: number;
-      };
-      characters: [
-        {
-          id: number;
-          name: {
-            first: string;
-            middle: string;
-            last: string;
-            full: string;
-            native: string;
-            userPreferred: string;
-          };
-          image: {
-            large: string;
-            medium: string;
-          };
-        }
-      ];
+      pageInfo: PageInterface;
+      characters: [CharacterStructure];
     };
   };
-};
+}
 
-export type AnimeStructure = {
+interface baseStructure {
   id: number;
+  siteUrl: string;
+}
+
+export interface AnimeStructure extends baseStructure {
   title: {
     romaji: string;
     english: string;
@@ -74,10 +42,9 @@ export type AnimeStructure = {
     medium: string;
     color: string;
   };
-};
+}
 
-export type CharacterStructure = {
-  id: number;
+export interface CharacterStructure extends baseStructure {
   name: {
     first: string;
     middle: string;
@@ -90,7 +57,7 @@ export type CharacterStructure = {
     large: string;
     medium: string;
   };
-};
+}
 
 export interface TwitterMediaResponse {
   media_id: number;
@@ -98,6 +65,11 @@ export interface TwitterMediaResponse {
   size: number;
   expires_after_secs: number;
   image: { image_type: string; w: number; h: number };
+}
+
+export interface TwitterTweetResponse {
+  id: number;
+  id_str: string;
 }
 
 export type DataType = 'anime' | 'character';

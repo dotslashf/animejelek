@@ -1,4 +1,4 @@
-import { TwitterMediaResponse } from './../typings/index';
+import { TwitterMediaResponse, TwitterTweetResponse } from './../typings/index';
 import Twit from 'twit';
 import dotenv from 'dotenv';
 import { promises as fs } from 'fs';
@@ -47,17 +47,36 @@ export class TwitterClient {
     });
   }
 
-  public async tweet(text: string): Promise<void> {
+  public async tweet(text: string[]): Promise<void> {
     const media = await this.uploadImage();
 
     try {
-      await this.client.post('statuses/update', {
-        status: text,
-        media_ids: [media.media_id_string],
-      });
-      this.logger.info('Success Tweeting', text);
+      this.client
+        .post('statuses/update', {
+          status: text[0],
+          media_ids: [media.media_id_string],
+        })
+        .then(async res => {
+          const tweetPointer = res.data as TwitterTweetResponse;
+          await this.tweetThread(tweetPointer.id_str, text[1]);
+        });
+
+      this.logger.info('Success Tweeting', text[0]);
     } catch (error) {
       this.logger.error('Tweeting Error', error);
+    }
+  }
+
+  private async tweetThread(id: string, text: string): Promise<void> {
+    try {
+      await this.client.post('statuses/update', {
+        status: text,
+        in_reply_to_status_id: id,
+        auto_populate_reply_metadata: true,
+      });
+      this.logger.info('Success Adding Tweet Thread');
+    } catch (error) {
+      this.logger.error('Tweeting Thread Error', error);
     }
   }
 }

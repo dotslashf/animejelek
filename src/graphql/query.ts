@@ -53,6 +53,7 @@ query($page: Int) {
         medium
         color
       }
+      siteUrl
     }
   }
 }`;
@@ -81,6 +82,7 @@ query($page: Int) {
         large
         medium
       }
+      siteUrl
     }
   }
 }`;

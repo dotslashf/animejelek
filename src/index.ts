@@ -4,6 +4,7 @@ import { randomNumber, randomType } from './utils/randomizer';
 import { Firebase } from './wrapper/firebase';
 import { downloadImage, joinImage } from './utils/imageManipulator';
 import { sleep } from './utils/sleep';
+import { tweetFormatter } from './utils/tweetFormatter';
 
 const apolloClient = new Client();
 const firebase = new Firebase();
@@ -20,9 +21,8 @@ const bot = new TwitterClient();
       if (!isAnimeExist) {
         const buffer = await downloadImage(anime.coverImage.extraLarge);
         await joinImage(buffer);
-        await bot.tweet(
-          `${anime.title.userPreferred} (${anime.title.native}/${anime.title.romaji}) jelek`
-        );
+        const tweets = tweetFormatter(anime, type);
+        await bot.tweet(tweets);
         await firebase.addAnime(anime);
       }
     } else if (type === 'character') {
@@ -31,9 +31,8 @@ const bot = new TwitterClient();
       if (!isCharacterExist) {
         const buffer = await downloadImage(character.image.large);
         await joinImage(buffer);
-        await bot.tweet(
-          `${character.name.userPreferred} (${character.name.native}) jelek`
-        );
+        const tweets = tweetFormatter(character, type);
+        await bot.tweet(tweets);
         await firebase.addCharacter(character);
       }
     }

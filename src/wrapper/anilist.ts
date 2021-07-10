@@ -55,8 +55,6 @@ export class Client {
         )
         .then(data => {
           const animes = data.body as AnimesStructure;
-          console.log(animes.data.Page.media.length);
-
           const anime = animes.data.Page.media[index];
           return resolve(anime);
         })
