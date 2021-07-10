@@ -1,3 +1,4 @@
+import createLogger from 'logging';
 import {
   AnimesStructure,
   AnimeStructure,
@@ -5,7 +6,6 @@ import {
   CharactersStructure,
 } from './../typings/index';
 import {
-  GET_ANIMELIST,
   GET_RANDOM_ANIME,
   GET_RANDOM_CHARACTER,
 } from './../graphql/query';
@@ -16,29 +16,11 @@ dotenv.config();
 
 export class Client {
   public readonly url: string;
+  private readonly logger: createLogger.Logger;
 
   public constructor() {
     this.url = process.env.ANILIST_URI!;
-  }
-
-  public getAnime(animeChar: string): Promise<AnimesStructure> {
-    return new Promise((resolve, reject) => {
-      request
-        .post(this.url)
-        .send(
-          Object.assign({
-            variables: {
-              search: animeChar,
-              type: 'ANIME',
-            },
-            query: GET_ANIMELIST,
-          })
-        )
-        .then(data => {
-          return resolve(data.body as AnimesStructure);
-        })
-        .catch(reject);
-    });
+    this.logger = createLogger('Anilist');
   }
 
   public getRandomAnime(nPage: number, index: number): Promise<AnimeStructure> {
@@ -56,6 +38,7 @@ export class Client {
         .then(data => {
           const animes = data.body as AnimesStructure;
           const anime = animes.data.Page.media[index];
+          this.logger.info('Getting Anime Data', anime.title);
           return resolve(anime);
         })
         .catch(reject);
@@ -80,6 +63,7 @@ export class Client {
         .then(data => {
           const characters = data.body as CharactersStructure;
           const character = characters.data.Page.characters[index];
+          this.logger.info('Getting Character Data', character.name);
           return resolve(character);
         })
         .catch(reject);
