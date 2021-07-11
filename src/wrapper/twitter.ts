@@ -77,6 +77,20 @@ export class TwitterClient {
       this.logger.info('Success Adding Tweet Thread');
     } catch (error) {
       this.logger.error('Tweeting Thread Error', error);
+      const tweetPartOne = text.slice(0, Math.round(text.length / 2));
+      const tweetPartTwo = text.slice(Math.round(text.length / 2), text.length);
+
+      this.logger.debug('Trying Splitting Tweet Thread');
+      this.client
+        .post('statuses/update', {
+          status: tweetPartOne,
+          in_reply_to_status_id: id,
+          auto_populate_reply_metadata: true,
+        })
+        .then(async res => {
+          const tweetPointer = res.data as TwitterTweetResponse;
+          await this.tweetThread(tweetPointer.id_str, tweetPartTwo);
+        });
     }
   }
 }
