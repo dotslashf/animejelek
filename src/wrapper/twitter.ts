@@ -76,7 +76,7 @@ export class TwitterClient {
       });
       this.logger.info('Success Adding Tweet Thread');
     } catch (error) {
-      this.logger.error('Tweeting Thread Error', error);
+      this.logger.warn('Warning Text Too Longer', error);
       const tweetPartOne = text.slice(0, Math.round(text.length / 2));
       const tweetPartTwo = text.slice(Math.round(text.length / 2), text.length);
 

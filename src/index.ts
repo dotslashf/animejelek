@@ -31,6 +31,8 @@ const logger = createLogger('🚀');
         const tweets = tweetFormatter(anime, type);
         await bot.tweet(tweets);
         await firebase.addAnime(anime);
+      } else {
+        logger.warn('Anime duplicated');
       }
     } else if (type === 'character') {
       const character = await apolloClient.getRandomCharacter(nPage, n);
@@ -41,9 +43,11 @@ const logger = createLogger('🚀');
         const tweets = tweetFormatter(character, type);
         await bot.tweet(tweets);
         await firebase.addCharacter(character);
+      } else {
+        logger.warn('Character duplicated');
       }
     }
     logger.info('--------#--------');
-    await sleep(180);
+    await sleep(90);
   }
 })();

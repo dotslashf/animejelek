@@ -17,16 +17,16 @@ export function tweetFormatter(
       _data.title.native
     })\nGenres: ${_data.genres.join(', ')}\nAvg Score/Favourites: ${
       _data.averageScore
-    }/${_data.favourites}\nHashtag: ${_data.hashtag}\n\nMore Info: ${
-      _data.siteUrl
-    }`.split('|');
+    }/${_data.favourites}\nHashtag: ${
+      _data.hashtag ? `${_data.hashtag}` : ''
+    }\n\nMore Info: ${_data.siteUrl}`.split('|');
   } else {
     let _data = data as CharacterStructure;
     let genderEmoji = null;
     if (_data.gender === 'Male') {
-      genderEmoji = '♂️';
+      genderEmoji = '🍆';
     } else if (_data.gender === 'Female') {
-      genderEmoji = '♀️';
+      genderEmoji = '🍑';
     } else {
       genderEmoji = '❓';
     }
